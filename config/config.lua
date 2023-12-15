@@ -1,5 +1,5 @@
 k = {}
-
+k.Debug = true
 --- ### PERMISSIONS ### ---
 k.RefreshPerm = 30 -- seconde
 k.PermAcces = {

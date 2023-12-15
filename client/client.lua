@@ -7,12 +7,18 @@ local name = GetPlayerFromServerId(PlayerId())
 local playerName = GetPlayerName(PlayerId())
 local grade = ESX.PlayerData.job.grade_name
 local money = ESX.PlayerData.money
-
+local PlyGroup = nil
+function Derint(msg)
+  if k.Debug then
+    print(msg)
+  end
+end
 Citizen.CreateThread(function()
-  Waot(10000)
+  Wait(10000)
   while true do
     ESX.TriggerServerCallback('kAdmin:Admin_GetPerm', function(group)
       PlyGroup = group
+      Derint(group)
     end)
     Citizen.wait(k.RefreshPerm * 1000)
   end
@@ -593,17 +599,9 @@ RegisterNetEvent("deco")
 AddEventHandler("deco", function()
   local playerName = GetPlayerName(PlayerId())
   local command = "administration"
-  function IsAdmin(playerName)
-    -- Vérifiez si le nom du joueur est dans la liste des administrateurs
-    for _, admin in ipairs(admins) do
-        if playerName == admin then
-            return true
-        end
-    end
-    return false
-  end  
+
   -- Exécutez la commande côté client uniquement si le joueur est un administrateur
-  if IsAdmin(playerName) then
+  if IsAdmin() then
     Wait(300)
       -- Exécutez la commande en tant qu'administrateur
       print("Déconnection en tant que : " ..playerName)
