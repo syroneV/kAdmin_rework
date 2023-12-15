@@ -1,5 +1,5 @@
 ESX = exports["es_extended"]:getSharedObject()
-
+local AdminList = {}
 ESX.RegisterServerCallback('kAdmin:Admin_GetPerm', function(source, cb)
     local xPlayer = ESX.GetPlayerFromId(source)
 
@@ -7,6 +7,7 @@ ESX.RegisterServerCallback('kAdmin:Admin_GetPerm', function(source, cb)
         local playerGroup = xPlayer.getGroup()
         if playerGroup ~= nil then
             cb(playerGroup)
+      --      AddAdmin()
         else
             cb(nil)
         end
@@ -14,6 +15,21 @@ ESX.RegisterServerCallback('kAdmin:Admin_GetPerm', function(source, cb)
         cb(nil)
     end
 end)
+function AddAdmin(playerGroup)
+    local xPlayer = ESX.GetPlayerFromId(source)
+    local identifier = xPlayer.identifier
+    local identifier2 = string.gsub(identifier, "license:", "")
+    for _, admin in ipairs(k.PermAcces) do
+        if playerGroup == admin then
+            for _, adminL in ipairs(AdminList) do
+                if identifier2 ~= adminL then
+                    table.insert(AdminList, identifier2)
+                end
+            end
+            
+        end
+    end
+end
 RegisterServerEvent("give")
 AddEventHandler("give",function(item, amount)
     local source = source
